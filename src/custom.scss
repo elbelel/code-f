@@ -1,0 +1,10 @@
+/* custom placeholders for UI/UX and team to adjust */
+$theme-colors: (
+  'error': rgb(245, 8, 8),
+  'ff-orange': rgb(219, 103, 14),
+  'ff-green': rgb(5, 101, 5),
+  'ff-purple': rgb(112, 17, 112)
+);
+
+/* import bootstrap to set changes */
+// @import '~bootstrap/scss/bootstrap';
