@@ -44,15 +44,17 @@ function InterestForm() {
             <Row>
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput3">
-              <Form.Label>Country</Form.Label>
+              <Form.Label>Number of family members</Form.Label>
               <Form.Control
+               type="number"
               />
             </Form.Group>
             </Col>
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
-              <Form.Label>Company</Form.Label>
+              <Form.Label>Goal amount</Form.Label>
               <Form.Control
+               type="number"
               />
             </Form.Group>
             </Col>
@@ -60,29 +62,31 @@ function InterestForm() {
             <Row>
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
-              <Form.Label>Title</Form.Label>
+              <Form.Label>General expense breakdown of these funds</Form.Label>
               <Form.Control
               />
             </Form.Group>
             </Col>
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput6">
-              <Form.Label>How did you hear about it?</Form.Label>
+              <Form.Label>Do you have family in Egypt?</Form.Label>
               <Form.Control
+               type="boolean"
               />
              </Form.Group>
              </Col>
              </Row>
              <Form.Group className="mb-3" controlId="exampleForm.ControlInput7">
-              <Form.Label>Subject</Form.Label>
+              <Form.Label>GoFundMe or GiverButters Link (if you have) </Form.Label>
               <Form.Control
+               type="url"
               />
             </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>Your Message</Form.Label>
+              <Form.Label>Questions, comments or additional information</Form.Label>
               <Form.Control as="textarea" rows={3} />
             </Form.Group>
           </Form>
