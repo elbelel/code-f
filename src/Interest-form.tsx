@@ -3,12 +3,16 @@ import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
+import { useFormData } from 'herotofu-react';
 
 function InterestForm() {
+const { formState, getFormSubmitHandler } = useFormData('https://fund-family-backend-production.up.railway.app/?format=openapi');
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const submitForm = () => sub
 
   return (
     <>
@@ -95,7 +99,8 @@ function InterestForm() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          {!!formState.status && <div className="py-2">Current form status is: {formState.status}</div>}
+          <Button variant="primary" onClick={getFormSubmitHandler()}>
             Submit
           </Button>
         </Modal.Footer>
