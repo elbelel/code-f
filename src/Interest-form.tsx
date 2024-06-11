@@ -2,18 +2,36 @@ import { useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+// import { useForm } from "react-hook-form";
 import Modal from 'react-bootstrap/Modal';
+import { useRef } from 'react';
 //
 //
 
 function InterestForm() {
-// const { formState, getFormSubmitHandler } = useFormData('https://fund-family-backend-production.up.railway.app/?format=openapi');
-
+  // const form = useForm()
+  // const { register, control, handlesSubmit} =form;
+  const url = "https://fund-family-backend-production.up.railway.app/?format=openapi"
+  // const [data, setData] = useState({
+  //   name: "",
+  //   email: "",
+  //   family_size: 0,
+  //   goal: 0,
+  //   breakdown: "",
+  //   egypt_fam: false, 
+  //   link: URL, 
+  //   comments: ""
+  // })
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // const submitForm = () => sub
+  const onSubmit = (e) => {
+    e.preventDefault()
+    const formData = new FormData(e.target)
+    console.log(formData)
+  } 
+ 
 
   return (
     <>
@@ -26,12 +44,12 @@ function InterestForm() {
           <Modal.Title>Register Your Interest</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form onSubmit={onSubmit}>
             <Row>
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Name</Form.Label>
-              <Form.Control
+              <Form.Control type="text" name="name" placeholder='Enter name'
               />
             </Form.Group>
             </Col>
@@ -39,7 +57,8 @@ function InterestForm() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
               <Form.Label>Email address</Form.Label>
               <Form.Control
-                type="email"
+                type="url"
+                name="email"
                 placeholder="name@example.com"
                 autoFocus
               />
@@ -52,6 +71,8 @@ function InterestForm() {
               <Form.Label>Number of family members</Form.Label>
               <Form.Control
                type="number"
+               name="family_size"
+               placeholder='example: 3'
               />
             </Form.Group>
             </Col>
@@ -60,6 +81,8 @@ function InterestForm() {
               <Form.Label>Goal amount</Form.Label>
               <Form.Control
                type="number"
+               name="goal"
+               placeholder='example: $5000'
               />
             </Form.Group>
             </Col>
@@ -69,6 +92,9 @@ function InterestForm() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
               <Form.Label>General expense breakdown of these funds</Form.Label>
               <Form.Control
+              type="text"
+              placeholder='Estimated distribution of funds here'
+              name= "expenses"
               />
             </Form.Group>
             </Col>
@@ -77,6 +103,7 @@ function InterestForm() {
               <Form.Label>Do you have family in Egypt?</Form.Label>
               <Form.Control
                type="boolean"
+               name="Egypt_Family"
               />
              </Form.Group>
              </Col>
@@ -85,6 +112,8 @@ function InterestForm() {
               <Form.Label>GoFundMe or GiverButters Link (if you have) </Form.Label>
               <Form.Control
                type="url"
+               name= "url"
+               placeholder='must be functioning url'
               />
             </Form.Group>
             <Form.Group
@@ -101,7 +130,7 @@ function InterestForm() {
             Close
           </Button>
           {/* {!!formState.status && <div className="py-2">Current form status is: {formState.status}</div>} */}
-          <Button variant="primary" onClick={getFormSubmitHandler()}>
+          <Button variant="primary" onSubmit={onSubmit}>
             Submit
           </Button>
         </Modal.Footer>
