@@ -4,6 +4,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 // import { useForm } from "react-hook-form";
 import Modal from 'react-bootstrap/Modal';
+import axios from 'axios';
 // import { useRef } from 'react';
 //
 //
@@ -11,11 +12,53 @@ import Modal from 'react-bootstrap/Modal';
 function InterestForm() {
 
   const [show, setShow] = useState(false);
+  const [data, setData] = useState(false);
 
+  const [email, setemail] = useState("");
+  const [name, setname] = useState("");
+  const [nof, setNoF] = useState("");
+  const [raised_amount, setRm] = useState("");
+  const [fund_breakdown, setFb] = useState("");
+  const [Egypt_fam, setEf] = useState("");
+  const [url, seturl] = useState("");
+
+  const [comments, setcomment] = useState("");
+  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const API_ENDPOINT = 'https://fund-family-backend-production.up.railway.app/create_form/'
 
+  const onSubmit = (event)=>{
+    event.preventDefault();
+    console.log(email)
+    console.log("email")
+
+    axios({
+      method: 'post',
+      url:API_ENDPOINT,
+      data: {
+        name: name,
+        email: email,
+        no_of_family: nof,
+        raised_amount: raised_amount,
+        fund_breakdown: fund_breakdown, 
+        fund_url: url, 
+        comments: comments,
+        family_in_egypt:Egypt_fam,
+      }
+    })
+    .then((res)=>{
+        console.log(res);
+        console.log(res.data);
+      })
+      
+    .catch(function (response) {
+      //handle error
+      console.log(response);
+    });
+
+  }
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -27,12 +70,12 @@ function InterestForm() {
           <Modal.Title>Register Your Interest</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form data={setData} onSubmit={onSubmit}>
+          <Form onSubmit={onSubmit}>
             <Row>
             <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Name</Form.Label>
-              <Form.Control type="text" name="name" placeholder='Enter name'
+              <Form.Control type="text" name="name" placeholder='Enter name' onChange={(e)=>{setname(e.target.value)}}
               />
             </Form.Group>
             </Col>
@@ -44,6 +87,7 @@ function InterestForm() {
                 name="email"
                 placeholder="name@example.com"
                 autoFocus
+                onChange={(e)=>{setemail(e.target.value)}}
               />
             </Form.Group>
             </Col>
@@ -56,6 +100,7 @@ function InterestForm() {
                type="number"
                name="no_of_family"
                placeholder='example: 3'
+               onChange={(e)=>{setNoF(e.target.value)}}
               />
             </Form.Group>
             </Col>
@@ -66,6 +111,7 @@ function InterestForm() {
                type="number"
                name="raised_amount"
                placeholder='example: $5000'
+               onChange={(e)=>{setRm(e.target.value)}}
               />
             </Form.Group>
             </Col>
@@ -78,6 +124,7 @@ function InterestForm() {
               type="text"
               placeholder='Estimated distribution of funds here'
               name= "fund_breakdown"
+              onChange={(e)=>{setFb(e.target.value)}}
               />
             </Form.Group>
             </Col>
@@ -87,6 +134,7 @@ function InterestForm() {
               <Form.Control
                type="boolean"
                name="Egypt_fam"
+               onChange={(e)=>{setEf(e.target.value)}}
               />
              </Form.Group>
              </Col>
@@ -97,6 +145,7 @@ function InterestForm() {
                type="url"
                name= "url"
                placeholder='must be functioning url'
+               onChange={(e)=>{seturl(e.target.value)}}
               />
             </Form.Group>
             <Form.Group
@@ -104,8 +153,11 @@ function InterestForm() {
               controlId="exampleForm.ControlTextarea1"
             >
               <Form.Label>Questions, comments or additional information</Form.Label>
-              <Form.Control name="comments" as="textarea" rows={3} />
+              <Form.Control name="comments" as="textarea" rows={3}  onChange={(e)=>{setcomment(e.target.value)}}/>
             </Form.Group>
+            <Button variant="primary" type="submit">
+            Submit
+          </Button>
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -113,9 +165,7 @@ function InterestForm() {
             Close
           </Button>
           {/* {!!formState.status && <div className="py-2">Current form status is: {formState.status}</div>} */}
-          <Button variant="primary" onSubmit={onSubmit}>
-            Submit
-          </Button>
+
         </Modal.Footer>
       </Modal>
     </>
